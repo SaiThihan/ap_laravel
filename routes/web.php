@@ -14,5 +14,32 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::resource('posts', HomeController::class);
+
+
+
+
+
+/* 
+    get -> all posts
+    get -> create form
+    post -> store function / method
+    get -> show function
+    get -> edit forms
+    put -> all params update / patch -> single param update
+    delete -> post delete
+
+    Route::get('post');
+    Route::post('post'); //Store method
+    Route::get('post/{id}');
+    Route::get('post/{id}/edit');
+    Route::put('post/{id}'); // will run update method
+    Route::delete('post/{id}'); // will run delete method
+*/
+
+
+
+
+
+
 
