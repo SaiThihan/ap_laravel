@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -14,7 +15,12 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+// Route::get('/',[HomeController::class,'testroot'])->name('root'); Used Naming Routing
+
 Route::resource('posts', HomeController::class);
+
+Route::get('logout', [AuthController::class,'logout']);
+
 
 
 
@@ -43,3 +49,5 @@ Route::resource('posts', HomeController::class);
 
 
 
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/posts', [HomeController::class,'index']);
