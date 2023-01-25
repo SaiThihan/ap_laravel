@@ -1,5 +1,8 @@
 <?php
 
+use App\Test;
+use App\Container;
+use App\TestFacade;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -15,7 +18,9 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-// Route::get('/',[HomeController::class,'testroot'])->name('root'); Used Naming Routing
+Route::get('/',function(){
+    dd(resolve('test')->execute());
+} );
 
 Route::resource('posts', HomeController::class);
 

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Mail\PostStored;
 use App\Models\Category;
+use App\Mail\PostCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\storePostRequest;
 
 
@@ -21,6 +25,7 @@ class HomeController extends Controller
     {
         //
         $data = Post::where('user_id',auth()->id())->orderBy('id','desc')->get();
+        //$request->session()->flash('status', 'Task was successful!');
         return view('home',compact('data'));
     }
 
@@ -49,9 +54,8 @@ class HomeController extends Controller
         // $post->description = $request->description;
         // $post->save();
 
-        Post::create($validatedData);
-
-        return redirect('/posts');
+        $post=Post::create($validatedData + ['user_id'=>Auth::user()->id]);
+        return redirect('/posts')->with('status', config('ap.message.created'));
     }
 
     /**
@@ -105,7 +109,7 @@ class HomeController extends Controller
         $validatedData = $request->validated();
         $post->update($validatedData);
 
-        return redirect('/posts');
+        return redirect('/posts')->with('update', config('ap.message.updated'));;
     }
 
     /**
@@ -118,6 +122,6 @@ class HomeController extends Controller
     {
         //
         $post->delete();
-        return redirect('/posts');
+        return redirect('/posts')->with('delete', config('ap.message.deleted'));;
     }
 }
