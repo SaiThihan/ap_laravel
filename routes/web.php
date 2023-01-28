@@ -18,9 +18,9 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/',function(){
-    dd(resolve('test')->execute());
-} );
+// Route::get('/',function(){
+//     dd(resolve('test')->execute());
+// } );
 
 Route::resource('posts', HomeController::class);
 

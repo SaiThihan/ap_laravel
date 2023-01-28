@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Mail\PostStored;
 use App\Models\Category;
 use App\Mail\PostCreated;
@@ -10,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\storePostRequest;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\PostCreatedNotification;
 
 
 
@@ -24,6 +27,10 @@ class HomeController extends Controller
     public function index()
     {
         //
+        // $user = User::find(1);
+        // $user->notify(new PostCreatedNotification());
+        // Notification::send(User::find(1),new PostCreatedNotification());
+        // echo 'noti sent'; exit();
         $data = Post::where('user_id',auth()->id())->orderBy('id','desc')->get();
         //$request->session()->flash('status', 'Task was successful!');
         return view('home',compact('data'));
